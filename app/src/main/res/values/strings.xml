@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Tech Learn</string>
+    <string name="title_news">News</string>
+    <string name="title_shorts">Videos</string>
+    <string name="title_discuss">Discuss</string>
+    <string name="title_attendance">Attendance</string>
+    <string name="TODO">todo</string>
+</resources>
