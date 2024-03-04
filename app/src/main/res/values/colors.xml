@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="color_60">#fbfaff</color>
-    <color name="color_30">#81e3ef</color>
+    <color name="color_30">#e3fbfd</color>
+<!--    <color name="color_30">#81e3ef</color>-->
     <color name="color_10">#7064e5</color>
 </resources>

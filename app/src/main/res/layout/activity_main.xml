@@ -37,7 +37,7 @@
         android:layout_marginEnd="0dp"
         app:itemIconTint="@color/color_10"
         app:itemTextColor="@color/color_10"
-        android:background="?android:attr/windowBackground"
+        android:background="@color/color_30"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
