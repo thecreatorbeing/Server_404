@@ -69,6 +69,8 @@ public class SplashActivity extends AppCompatActivity {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         networkErrDialog = DialogApi.createNetworkErrorDialog(this);
 
+
+
         dialogThread = new Thread(){
             @Override
             public void run() {
@@ -212,42 +214,12 @@ public class SplashActivity extends AppCompatActivity {
 //                            dialogThread.start();
 //                        }
                 } else {
-                    DatabaseReference databaseReference = FirebaseConstants.QUERY_VISITOR_NODE;
-                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.exists()){
-                                AdminModel adminModel;
-                                boolean isValidVisitor = false;
-                                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                                    adminModel = childSnapshot.getValue(AdminModel.class);
-                                    assert adminModel != null;
-
-//                                    Log.d("visitor", visitorModel.getId() +" == "+ id.getText().toString() +" && "+ visitorModel.getPassword() +" == "+ password.getText().toString());
-                                    if(adminModel.getId().equals(id.getText().toString()) && adminModel.getPassword().equals(password.getText().toString())){
-                                        isValidVisitor = true;
-                                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                                        finish();
-//                                        Log.d("visitor", visitorModel.getId() + " has password: " + visitorModel.getPassword());
-                                        break;
-                                    }
-                                }
-                                if(!isValidVisitor) {
-                                    Toast.makeText(SplashActivity.this, "invalid visitor credentials!", Toast.LENGTH_SHORT).show();
-                                }
-                            }else{
-                                Toast.makeText(SplashActivity.this, "wrong credentials", Toast.LENGTH_SHORT).show();
-//                                    if(!dialogThread.isAlive()){
-//                                        dialogThread.start();
-//                                    }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+                    if (id.getText().toString().trim().equals("admin") || password.getText().toString().trim().equals("Pass@123")) {
+                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                        finish();
+                    }else {
+                        Toast.makeText(SplashActivity.this, "wrong credentials!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

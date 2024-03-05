@@ -12,4 +12,7 @@ public class FirebaseConstants {
     public static final DatabaseReference QUERY_DISCUSSION_NODE = FirebaseDatabase.getInstance(DATABASE_URL).getReference().child("discussion");
     public static final DatabaseReference COMMENT_SECTION_NODE = FirebaseDatabase.getInstance(DATABASE_URL).getReference().child("comment_sections");
 
+    public static final DatabaseReference ATTENDANCE_NODE = FirebaseDatabase.getInstance(DATABASE_URL).getReference().child("attendance");
+    public static final DatabaseReference ATTENDANCE_RANDOM_NUMBER_NODE = FirebaseDatabase.getInstance(DATABASE_URL).getReference().child("publicNum");
+
 }
