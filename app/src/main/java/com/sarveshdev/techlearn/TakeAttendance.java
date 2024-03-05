@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.sarveshdev.techlearn.constants.FirebaseConstants;
 import com.sarveshdev.techlearn.firebase.FirebaseApi;
@@ -93,16 +94,20 @@ public class TakeAttendance extends AppCompatActivity {
                     if (input.getText().toString().isEmpty()){
                         Toast.makeText(TakeAttendance.this, "enter properly!", Toast.LENGTH_SHORT).show();
                     } else {
-                        long entered = Long.parseLong(input.getText().toString());
+                        int entered = Integer.parseInt(input.getText().toString());
 
                         if(secretNum[0]!=-1 && secretNum[0]==entered){
-                            final long[] attendance = {0};
+                            final int[] attendance = {0};
                             FirebaseConstants.ATTENDANCE_NODE.child(FirebaseApi.getSignedInUser().getUid()).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     if (snapshot.exists()){
                                         Log.d("snapshot 121", snapshot.toString());
-                                        attendance[0] = snapshot.getValue(Long.class);
+                                        try {
+                                            attendance[0] = snapshot.getValue(Integer.class);
+                                        } catch(Exception e){
+                                            Toast.makeText(TakeAttendance.this, "nullpointerException", Toast.LENGTH_SHORT).show();
+                                        }
                                         Log.d("snapshot 123", String.valueOf(attendance[0]));
 
                                         /*for (DataSnapshot s: snapshot.getChildren()) {
@@ -121,14 +126,14 @@ public class TakeAttendance extends AppCompatActivity {
                             Log.d("snapshot check", String.valueOf(attendance[0]));
                             int num = (int) (attendance[0] + 1);
                             Log.d("snapshot check", String.valueOf(num));
-                            FirebaseConstants.ATTENDANCE_NODE.child(FirebaseApi.getSignedInUser().getUid()).setValue(
-                                    num
-                            ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            /*Query q = */FirebaseConstants.ATTENDANCE_NODE.child(FirebaseApi.getSignedInUser().getUid()).setValue(num)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    Toast.makeText(TakeAttendance.this, "Attendance Registered Successfully!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(TakeAttendance.this, "Attendance Registered Successfully!: "+ num, Toast.LENGTH_SHORT).show();
                                 }
-                            });
+                                }
+                        );
                         } else {
                             Toast.makeText(TakeAttendance.this, "Attendance Failed!", Toast.LENGTH_SHORT).show();
                         }
